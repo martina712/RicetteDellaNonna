@@ -4,7 +4,7 @@ from flask_login import LoginManager
 from .models import User  # Import relativo
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////Users/martinafabiani/sitomf/instance/gestione_ricette.sqlite'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////martinafabiani/sitomf/instance/gestione_ricette.sqlite'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = 'somesecretkey'
 

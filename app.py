@@ -14,7 +14,7 @@ print("Starting Flask application...")
 
 # Initialize the Flask app
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////Users/martinafabiani/sitomf/instance/gestione_ricette.sqlite'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///instance/gestione.ricette.sqlite'
 app.config['SECRET_KEY'] = 'somesecretkey'  # Replace with a secure key for production
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 UPLOAD_FOLDER = '/Users/martinafabiani/sitomf/static/uploads'
