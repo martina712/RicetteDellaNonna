@@ -1,0 +1,440 @@
+/* Reset margins and set full height */
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+/* Use Flexbox on the body to allow the footer to stick to the bottom */
+body {
+    display: flex;
+    flex-direction: column;
+    font-family: 'Georgia', serif;
+    background-color: var(--background);
+    color: #333;
+}
+
+/* Header remains unchanged */
+header {
+    background-color: var(--primary);
+    color: #fff;
+    padding: 1em;
+}
+
+/* Navbar */
+.navbar ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.navbar ul li {
+    margin: 0.5em;
+}
+
+.navbar ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.navbar ul li a i {
+    margin-right: 0.5em;
+}
+
+/* Main content will expand to take available space */
+main {
+    flex: 1;
+    padding: 2em;
+}
+
+/* Footer styles - sticky at the bottom */
+footer {
+    background-color: var(--primary);
+    color: #fff;
+    padding: 1em;
+    text-align: center;
+}
+
+/* Footer content for top recipes */
+footer .top-recipes {
+    text-align: center;
+}
+
+footer .top-recipes ul {
+    list-style: none;
+    padding: 0;
+}
+
+footer .top-recipes ul li {
+    margin: 0.3em 0;
+}
+
+/* Stile per la scritta "Top 5 Ricette" */
+.top-recipes h2 {
+    color: #fff; /* Colore chiaro per la scritta */
+}
+
+/* Stile per i link delle ricette nella homepage */
+.top-recipes a {
+    color: #fff; /* Colore della banda rossa */
+    text-decoration: none; /* Rimuove la sottolineatura */
+    font-weight: bold; /* Facoltativo: rende il testo in grassetto */
+}
+
+.top-recipes a:hover {
+    color: #555; /* Grigio scuro per hover */
+    text-decoration: underline; /* Facoltativo: aggiunge una sottolineatura al passaggio del mouse */
+}
+
+/* Forms */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+
+input[type="text"],
+input[type="password"],
+textarea {
+    padding: 0.5em;
+    border: 1px solid var(--secondary);
+    border-radius: 4px;
+}
+
+/* Buttons */
+button {
+    background-color: var(--secondary);
+    border: none;
+    padding: 0.8em;
+    color: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: var(--primary);
+}
+
+/* Stile per il pulsante dei preferiti */
+.favorite-button {
+    background: none;
+    border: none;
+    color: var(--secondary);
+    cursor: pointer;
+    font-size: 1.2em;
+}
+
+.favorite-button:hover {
+    color: var(--primary);
+}
+
+/* Stile per il pulsante di logout */
+.logout-button {
+    background-color: var(--primary);
+    color: #fff;
+    border: none;
+    padding: 0.8em 1.5em;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: bold;
+    margin-top: 1em;
+}
+
+.logout-button:hover {
+    background-color: var(--secondary);
+}
+
+/* Responsive Layout */
+@media (max-width: 768px) {
+    .navbar ul {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+/* Color Palette */
+:root {
+    --primary: #bb5a5a;
+    --secondary: #e79e85;
+    --tertiary: #eaceb4;
+    --background: #f2e9d0;
+}
+
+/* Additional styling for the registration page */
+
+.register-page {
+    max-width: 400px;
+    margin: 2em auto;
+    background-color: var(--tertiary);  /* Light, rustic tone */
+    padding: 2em;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.register-page h2 {
+    text-align: center;
+    color: var(--primary);  /* Use primary color for headings */
+    margin-bottom: 1em;
+}
+
+.form-group {
+    margin-bottom: 1em;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5em;
+    color: var(--primary);
+    font-weight: bold;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 0.5em;
+    border: 1px solid var(--secondary);
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-family: 'Georgia', serif;
+}
+
+button[type="submit"] {
+    width: 100%;
+    padding: 0.8em;
+    background-color: var(--secondary);
+    border: none;
+    color: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: bold;
+    margin-top: 1em;
+}
+
+button[type="submit"]:hover {
+    background-color: var(--primary);
+}
+
+/* Hero section for the homepage */
+.hero {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60vh;
+    text-align: center;
+    background-color: var(--background);
+    position: relative; /* Enable positioning for child elements */
+}
+
+.hero h1 {
+    font-size: 3em;
+    font-weight: bold;
+    color: var(--primary);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    z-index: 2; /* Ensure the title is above the background images */
+}
+
+/* Background images */
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('/static/image1.png'), url('/static/image8.png'), 
+                      url('/static/image2.png'), url('/static/image3.png'), 
+                      url('/static/image4.png'), url('/static/image5.png'), 
+                      url('/static/image6.png'), url('/static/image7.png');
+    background-size: 10%, 10%, 10%, 10%, 10%, 10%, 10%, 10%; /* Adjust size of each image */
+    background-position: 10% 5%, 45% 10%, 90% 5%, 20% 50%, 
+                         80% 50%, 5% 100%, 50% 95%, 95% 100%; /* Lowered positions for image5, image6, and image7 */
+    background-repeat: no-repeat;
+    z-index: 1; /* Ensure the images are behind the title */
+    opacity: 0.8; /* Slight transparency for the images */
+}
+
+/* Background images for the recipe page */
+.recipe-page {
+    position: relative; /* Enable positioning for child elements */
+    background-color: var(--background);
+}
+
+.recipe-page::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('/static/image1.png'), url('/static/image8.png'), 
+                      url('/static/image2.png'), url('/static/image3.png'), 
+                      url('/static/image4.png'), url('/static/image5.png'), 
+                      url('/static/image6.png'), url('/static/image7.png');
+    background-size: 10%, 10%, 10%, 10%, 10%, 10%, 10%, 10%; /* Adjust size of each image */
+    background-position: 10% 5%, 45% 10%, 90% 5%, 20% 50%, 
+                         80% 50%, 5% 100%, 50% 95%, 95% 100%; /* Same positions as the homepage */
+    background-repeat: no-repeat;
+    z-index: 1; /* Ensure the images are behind the content */
+    opacity: 0.8; /* Slight transparency for the images */
+}
+
+.recipe-page-content {
+    position: relative; /* Ensure content is above the background */
+    z-index: 2;
+    padding: 2em;
+}
+
+/* Ordered background images for the user page */
+.page-with-background {
+    position: relative; /* Enable positioning for child elements */
+    background-color: var(--background);
+    padding-top: 5em; /* Leave space for the command bar */
+}
+
+.page-with-background::before {
+    content: '';
+    position: absolute;
+    top: 5em; /* Start below the command bar */
+    left: 0;
+    width: 100%;
+    height: calc(100% - 5em); /* Exclude the command bar height */
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 columns for images */
+    grid-template-rows: repeat(2, 1fr); /* 2 rows for images */
+    gap: 1em; /* Space between images */
+    background-image: url('/static/image1.png'), url('/static/image2.png'), 
+                      url('/static/image3.png'), url('/static/image4.png'), 
+                      url('/static/image5.png'), url('/static/image6.png'), 
+                      url('/static/image7.png'), url('/static/image8.png');
+    background-size: 10%, 10%, 10%, 10%, 10%, 10%, 10%, 10%; /* Adjust size of each image */
+    background-position: 10% 5%, 45% 10%, 90% 5%, 20% 65%, 
+    80% 65%, 5% 100%, 50% 100%, 95% 100%; /* Lowered positions for image5, image6, and image7 */;
+    background-repeat: no-repeat;
+    z-index: 1; /* Ensure the images are behind the content */
+    opacity: 0.8; /* Slight transparency for the images */
+}
+
+.page-content {
+    position: relative; /* Ensure content is above the background */
+    z-index: 2;
+    padding: 2em;
+}
+
+/* Stile per i link delle ricette */
+.page-content a,
+.search-page a {
+    color: #000; /* Nero */
+    text-decoration: none; /* Rimuove la sottolineatura */
+    font-weight: bold; /* Facoltativo: rende il testo in grassetto */
+}
+
+.page-content a:hover,
+.search-page a:hover {
+    color: #555; /* Grigio scuro per hover */
+    text-decoration: underline; /* Facoltativo: aggiunge una sottolineatura al passaggio del mouse */
+}
+
+/* Sfondo per la pagina Preferiti */
+.favorites-page.hero {
+    display: flex;
+    flex-direction: column; /* Cambia la direzione per posizionare il contenuto */
+    justify-content: flex-start; /* Posiziona il contenuto in alto */
+    align-items: center;
+    height: 60vh;
+    text-align: left; /* Allinea il testo a sinistra */
+    background-color: var(--background);
+    position: relative;
+    padding-top: 2em; /* Aggiungi spazio sopra il contenuto */
+}
+
+.favorites-page.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('/static/image1.png'), url('/static/image8.png'),
+                      url('/static/image2.png'), url('/static/image3.png'),
+                      url('/static/image4.png'), url('/static/image5.png'),
+                      url('/static/image6.png'), url('/static/image7.png');
+    background-size: 10%, 10%, 10%, 10%, 10%, 10%, 10%, 10%;
+    background-position: 10% 5%, 45% 10%, 90% 5%, 20% 50%,
+                         80% 50%, 5% 100%, 50% 95%, 95% 100%;
+    background-repeat: no-repeat;
+    z-index: 1;
+    opacity: 0.8;
+}
+
+.favorites-page.hero h2, .favorites-page.hero h3, .favorites-page.hero p {
+    position: relative;
+    z-index: 2;
+    color: #000; /* Cambia il colore del testo in nero */
+}
+
+.favorites-page.hero a {
+    color: #000; /* Cambia il colore dei link in nero */
+    text-decoration: none; /* Rimuove la sottolineatura */
+    font-weight: bold; /* Rende il testo in grassetto */
+}
+
+.favorites-page.hero a:hover {
+    color: #555; /* Cambia il colore dei link al passaggio del mouse */
+    text-decoration: underline; /* Aggiunge una sottolineatura al passaggio del mouse */
+}
+
+/* Stile per la pagina Preferiti */
+.favorites-page.hero {
+    display: flex;
+    justify-content: flex-start; /* Posiziona il contenuto a lato */
+    align-items: flex-start;
+    height: 60vh;
+    text-align: left;
+    background-color: var(--background);
+    position: relative;
+    padding: 2em;
+}
+
+.favorites-content {
+    position: relative;
+    z-index: 2;
+    max-width: 400px; /* Limita la larghezza del contenuto */
+}
+
+.welcome-message {
+    font-size: 2em; /* Messaggio di benvenuto più grande */
+    font-weight: bold;
+    color: var(--primary);
+    margin-bottom: 1em;
+}
+
+.favorites-list {
+    list-style: none;
+    padding: 0;
+}
+
+.favorites-list li {
+    margin: 0.5em 0;
+}
+
+.favorite-link {
+    color: #000; /* Nero per i link */
+    text-decoration: none;
+    font-size: 1.2em; /* Dimensione maggiore per i link */
+    display: flex;
+    align-items: center;
+}
+
+.favorite-link i {
+    margin-right: 0.5em; /* Spazio tra l'icona e il testo */
+    color: var(--secondary);
+}
+
+.favorite-link:hover {
+    color: var(--primary); /* Cambia colore al passaggio del mouse */
+    text-decoration: underline;
+}

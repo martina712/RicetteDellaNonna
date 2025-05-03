@@ -1,0 +1,43 @@
+<!-- templates/utente.html -->
+{% extends 'base.html' %}
+
+{% block title %}Preferiti{% endblock %}
+
+{% block content %}
+<div class="favorites-page hero">
+    {% if not current_user.is_authenticated %}
+        <h2>Login</h2>
+        <form action="{{ url_for('login') }}" method="POST">
+            <label for="nome_utente">Nome utente:</label>
+            <input type="text" id="nome_utente" name="nome_utente" required maxlength="8">
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required maxlength="12">
+
+            <button type="submit">Accedi</button>
+        </form>
+        <p class="register-prompt">
+            Non hai ancora un account?
+            <a href="{{ url_for('register') }}" class="btn register-btn">Registrati qui</a>
+        </p>
+    {% else %}
+        <div class="favorites-content">
+            <h1 class="welcome-message">Bentornato, {{ current_user.nome_utente }}</h1>
+            <h3>Le tue ricette preferite</h3>
+            {% if favorites %}
+                <ul class="favorites-list">
+                    {% for recipe in favorites %}
+                        <li>
+                            <a href="{{ url_for('view_recipe', title=recipe.title) }}" class="favorite-link">
+                                <i class="fas fa-utensils"></i> {{ recipe.title }}
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>Non hai ancora aggiunto ricette ai preferiti.</p>
+            {% endif %}
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

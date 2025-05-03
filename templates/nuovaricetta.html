@@ -1,0 +1,33 @@
+<!-- templates/nuovaricetta.html -->
+{% extends 'base.html' %}
+
+{% block title %}Nuova Ricetta{% endblock %}
+
+{% block content %}
+    <div class="add-recipe-page">
+        <h2>Aggiungi una Nuova Ricetta</h2>
+        <form action="{{ url_for('add_recipe') }}" method="POST" enctype="multipart/form-data">
+            <label for="title">Titolo:</label>
+            <input type="text" id="title" name="title" required>
+
+            <label for="ingredienti">Ingredienti:</label>
+            <textarea id="ingredienti" name="ingredienti" required></textarea>
+
+            <label for="procedimento">Procedimento:</label>
+            <textarea id="procedimento" name="procedimento" required></textarea>
+
+            <label for="tipo">Tipo di Ricetta:</label>
+            <select id="tipo" name="tipo" required>
+                <option value="desserts">Desserts</option>
+                <option value="first_courses">Primi piatti</option>
+                <option value="main_courses">Secondi</option>
+                <option value="starters">Antipasti/Contorni</option>
+            </select>
+
+            <label for="image">Immagine (opzionale):</label>
+            <input type="file" id="image" name="image" accept="image/*">
+
+            <button type="submit">Inserisci Ricetta</button>
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,44 @@
+<!-- templates/utente.html -->
+{% extends 'base.html' %}
+
+{% block title %}Profilo Utente{% endblock %}
+
+{% block content %}
+<div class="page-with-background">
+    <div class="page-content">
+        {% if not current_user.is_authenticated %}
+            <h2>Login</h2>
+            <form action="{{ url_for('login') }}" method="POST">
+                <div class="form-group">
+                    <label for="nome_utente">Nome utente:</label>
+                    <input type="text" id="nome_utente" name="nome_utente" required maxlength="8">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required maxlength="12">
+                </div>
+                <button type="submit">Accedi</button>
+            </form>
+            <p class="register-prompt">
+                Non hai ancora un account?
+                <a href="{{ url_for('register') }}" class="btn register-btn">Registrati qui</a>
+            </p>
+        {% else %}
+            <h2>Benvenuto, {{ current_user.nome_utente }}</h2>
+            <p>Email: {{ current_user.email }}</p>
+            <h3>Le tue ricette</h3>
+            <ul>
+                {% for recipe in user_recipes %}
+                    <li>
+                        <a href="{{ url_for('view_recipe', title=recipe.title) }}">{{ recipe.title }}</a>
+                        <a href="{{ url_for('edit_recipe', recipe_nr=recipe.nr) }}" class="edit-link">Modifica</a>
+                    </li>
+                {% endfor %}
+            </ul>
+            <form action="{{ url_for('logout') }}" method="GET">
+                <button type="submit" class="logout-button">Logout</button>
+            </form>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,36 @@
+<!-- templates/base.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Cooking Blog{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+          integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <ul>
+                <li><a href="{{ url_for('add_recipe') }}"><i class="fas fa-bars"></i> Nuova Ricetta</a></li>
+                <li><a href="{{ url_for('favorites') }}"><i class="fas fa-heart"></i> Preferiti</a></li>
+                <li><a href="{{ url_for('user_page') }}"><i class="fas fa-user"></i> Utente</a></li>
+                <li><a href="{{ url_for('index') }}"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="{{ url_for('search') }}"><i class="fas fa-search"></i> Cerca</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        {% block content %}
+        <!-- Page-specific content goes here -->
+        {% endblock %}
+    </main>
+
+    <footer>
+        {% block footer %}
+        <!-- The homepage will override this block to show the top 5 recipes -->
+        {% endblock %}
+    </footer>
+</body>
+</html>

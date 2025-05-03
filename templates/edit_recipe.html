@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}Modifica Ricetta{% endblock %}
+
+{% block content %}
+<div class="edit-recipe-page">
+    <h2>Modifica Ricetta</h2>
+    <form action="{{ url_for('edit_recipe', recipe_nr=recipe.nr) }}" method="POST" enctype="multipart/form-data">
+        <label for="title">Titolo:</label>
+        <input type="text" id="title" name="title" value="{{ recipe.title }}" required>
+
+        <label for="ingredienti">Ingredienti:</label>
+        <textarea id="ingredienti" name="ingredienti" required>{{ recipe.ingredienti }}</textarea>
+
+        <label for="procedimento">Procedimento:</label>
+        <textarea id="procedimento" name="procedimento" required>{{ recipe.procedimento }}</textarea>
+
+        <label for="tipo">Tipo di Ricetta:</label>
+        <select id="tipo" name="tipo" required>
+            <option value="desserts" {% if recipe.tipo == 'desserts' %}selected{% endif %}>Desserts</option>
+            <option value="first_courses" {% if recipe.tipo == 'first_courses' %}selected{% endif %}>Primi piatti</option>
+            <option value="main_courses" {% if recipe.tipo == 'main_courses' %}selected{% endif %}>Secondi</option>
+            <option value="starters" {% if recipe.tipo == 'starters' %}selected{% endif %}>Antipasti/Contorni</option>
+        </select>
+
+        <label for="recipe.image_path">Immagine (opzionale):</label>
+        {% if recipe.image_path %}
+            <div>
+                <img src="{{ url_for('static', filename='uploads/' ~ recipe.image_path.split('/')[-1]) }}" alt="Immagine Ricetta" style="max-width: 200px; max-height: 200px;">
+                <div>
+                    <input type="checkbox" id="remove_image" name="remove_image">
+                    <label for="remove_image">Rimuovi immagine</label>
+                </div>
+            </div>
+        {% endif %}
+        <input type="file" id="image_path" name="image" accept="image/*">
+
+        <button type="submit">Salva Modifiche</button>
+    </form>
+</div>
+{% endblock %}
