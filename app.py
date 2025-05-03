@@ -6,7 +6,7 @@ from sqlalchemy import func
 from urllib.parse import unquote
 import os
 from werkzeug.utils import secure_filename
-from .models import User, Recipe, Comment, Vote, Favorite  # Importa tutti i modelli
+from models import User, Recipe, Comment, Vote, Favorite  # Importa tutti i modelli
 import logging
 
 logging.basicConfig(level=logging.INFO)
