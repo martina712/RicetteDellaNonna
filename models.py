@@ -29,7 +29,7 @@ class Recipe(db.Model):
     procedimento = db.Column(db.Text, nullable=False)
     tipo = db.Column(db.String(20), nullable=False)
     utente_id = db.Column(db.Integer, db.ForeignKey('utenti.id'), nullable=False)
-    image_path = db.Column(db.String(255), nullable=False)
+    image_path = db.Column(db.String(255), nullable=True )
     votes = db.relationship('Vote', backref='recipe', lazy='dynamic')
 
     @property

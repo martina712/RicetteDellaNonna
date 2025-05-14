@@ -6,7 +6,7 @@ from sqlalchemy import func
 from urllib.parse import unquote
 import os
 from werkzeug.utils import secure_filename
-from models import User, Recipe, Comment, Vote, Favorite  # Importa tutti i modelli
+from .models import db, User, Recipe, Comment, Vote, Favorite  # Importa tutti i modelli
 import logging
 
 logging.basicConfig(level=logging.INFO)
@@ -14,15 +14,20 @@ print("Starting Flask application...")
 
 # Initialize the Flask app
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///instance/gestione.ricette.sqlite'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///instance/gestione_ricette.sqlite'
 app.config['SECRET_KEY'] = 'somesecretkey'  # Replace with a secure key for production
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 UPLOAD_FOLDER = 'static/uploads'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+if not os.path.exists(UPLOAD_FOLDER):
+    os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+
+
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 
-# Initialize the database
-db = SQLAlchemy(app)
+# Initialize the database defined in models.py
+db.init_app(app)
 
 # Initialize the login manager
 login_manager = LoginManager(app)
@@ -131,14 +136,15 @@ def add_recipe():
         procedimento = request.form.get('procedimento')
         tipo = request.form.get('tipo')
         image = request.files.get('image')
-        image_path = request.files.get('image_path')
+
+        image_path = None
 
         try:
             # Salva l'immagine se presente
             if image and allowed_file(image.filename):
                 filename = secure_filename(image.filename)
                 image.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-                image_path = f'uploads/{filename}'
+                image_path = filename  # salva solo il path relativo
 
             # Crea una nuova ricetta
             new_recipe = Recipe(
@@ -148,20 +154,20 @@ def add_recipe():
                 tipo=tipo,
                 image_path=image_path,
                 utente_id=current_user.id
-            )
+     )
 
-            # Aggiungi la ricetta al database
             db.session.add(new_recipe)
             db.session.commit()
             flash('Ricetta aggiunta con successo!', 'success')
             return redirect(url_for('index'))
 
         except Exception as e:
-            db.session.rollback()  # Annulla eventuali modifiche in caso di errore
+            db.session.rollback()
             flash(f'Errore durante l\'aggiunta della ricetta: {str(e)}', 'danger')
             return redirect(url_for('add_recipe'))
 
     return render_template('nuovaricetta.html')
+
 
 @app.route('/edit_recipe/<int:recipe_nr>', methods=['GET', 'POST'])
 @login_required
@@ -180,29 +186,39 @@ def edit_recipe(recipe_nr):
 
         image = request.files.get('image')
         remove_image = request.form.get('remove_image')
-        try:
-            if remove_image == 'on' and recipe.image_path:
-                full_image_path = os.path.join(app.config['UPLOAD_FOLDER'], recipe.image_path.split('/')[-1])
-                if os.path.exists(full_image_path):
-                    os.remove(full_image_path)
-                recipe.image_path = None
 
-            if image and allowed_file(image.filename):
+        try:
+            # Rimuovi immagine se richiesto
+            if remove_image == 'on':
                 if recipe.image_path:
-                    full_image_path = os.path.join(app.config['UPLOAD_FOLDER'], recipe.image_path.split('/')[-1])
+                    full_image_path = os.path.join(app.config['UPLOAD_FOLDER'], recipe.image_path)
                     if os.path.exists(full_image_path):
                         os.remove(full_image_path)
+                recipe.image_path = None
 
+            # Carica nuova immagine se presente
+            if image and allowed_file(image.filename):
+                # Rimuovi immagine precedente se esiste
+                if recipe.image_path:
+                    old_path = os.path.join(app.config['UPLOAD_FOLDER'], recipe.image_path)
+                    if os.path.exists(old_path):
+                        os.remove(old_path)
+
+                # Salva nuova immagine
                 filename = secure_filename(image.filename)
                 image.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-                recipe.image_path = f'uploads/{filename}'
+                recipe.image_path = filename  # solo il nome, senza "uploads/"
+
             db.session.commit()
             flash('Ricetta modificata con successo!', 'success')
             return redirect(url_for('user_page'))
+
         except Exception as e:
             flash(f'Errore durante la modifica della ricetta: {str(e)}', 'danger')
             return redirect(url_for('edit_recipe', recipe_nr=recipe_nr))
+
     return render_template('edit_recipe.html', recipe=recipe)
+
 
 @app.route('/search')
 def search():

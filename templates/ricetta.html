@@ -17,7 +17,8 @@
             </div>
             {% if recipe.image_path %}
             <div>
-                <img src="{{ url_for('static', filename=recipe.image_path) }}" alt="Immagine Ricetta" style="max-width: 300px; max-height: 300px;">
+                <img src="{{ url_for('static', filename='uploads/' ~ recipe.image_path) }}"alt="Immagine Ricetta" style="max-width: 300px; max-height: 300px;">
+
             </div>
             {% endif %}
         </div>
